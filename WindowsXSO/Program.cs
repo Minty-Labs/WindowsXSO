@@ -41,6 +41,8 @@ public class Program {
                 Console.WriteLine("----------------------------------------");
                 Log.Warning("<[{0}]>", "Windows 11");
                 Log.Warning("(System) Settings > Privacy & Security > Notifications (Section) > Allow apps to access notifications > ON (true)");
+                Log.Warning("<[{0}]>", "Windows 10");
+                Log.Warning("(System) Settings > Notifications & actions > Get notifications from apps and other senders > ON (true)");
                 Log.Warning("Once complete, restart this program.");
                 Log.Warning($"Press any key to exit {Vars.AppName}.");
                 Console.ReadKey();
@@ -153,7 +155,7 @@ public class Program {
                     Log.Information("JSON:\n{0}\n", xsNotification.AsJson());
                 }
                 catch (Exception e) {
-                    Console.WriteLine(e);
+                    Log.Error(e, "Error sending notification.");
                 }
             }
             Task.Delay(TimeSpan.FromSeconds(1));
