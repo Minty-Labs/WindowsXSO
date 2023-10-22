@@ -152,7 +152,9 @@ public class Program {
         
                     new XSNotifier().SendNotification(xsNotification);
                     Log.Information("Notification sent from {0}: \"{1} - {2}\"", appName, title, text);
-                    Log.Information("JSON:\n{0}\n", xsNotification.AsJson());
+#if DEBUG
+                    Log.Information("JSON: {0}\n", xsNotification.AsJson());
+#endif
                 }
                 catch (Exception e) {
                     Log.Error(e, "Error sending notification.");
