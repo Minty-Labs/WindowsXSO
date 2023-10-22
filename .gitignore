@@ -1,0 +1,9 @@
+.vs/
+.idea/
+.obsidian/
+.vscode/
+*.snk
+*.psd
+WindowsXSO/bin/
+WindowsXSO/obj/
+Builds/
