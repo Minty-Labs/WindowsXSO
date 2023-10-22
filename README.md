@@ -1,10 +1,14 @@
 <a name="readme-top"></a>
 
+<div align="center">
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
+
+</div>
 
 
 
@@ -76,12 +80,12 @@ Do you always miss notifactions while you're in VR? And, do you use [XSOverlay][
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Download the [latest version]([releases-url]) of WindowsXSO.
+Download the [latest version][releases-url] of WindowsXSO.
 
 ### Prerequisites
 
 This program requires very specific things to run properly:
-* [DotNet Desktop Runtime 7.0.x]([DotNetUrl]) (For the application)
+* [DotNet Desktop Runtime 7.0.x][DotNetUrl] (For the application)
 * Windows 11 Home/Pro
 * * Or Windows 10 Home/Pro (1803+)
 * Granted access to notifications
@@ -134,7 +138,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See [`LICENSE`]([license-url]) for more information.
+Distributed under the MIT License. See [`LICENSE`][license-url] for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
