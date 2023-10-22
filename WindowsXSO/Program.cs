@@ -10,7 +10,7 @@ namespace WindowsXSO;
 public static class Vars {
     public const string AppName = "WindowsXSO";
     public const string WindowsTitle = "Windows to XSOverlay Notification Relay";
-    public const string AppVersion = "1.1.2";
+    public const string AppVersion = "1.1.3";
 }
 
 public class Program {

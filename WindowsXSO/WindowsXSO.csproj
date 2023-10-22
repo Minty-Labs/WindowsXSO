@@ -6,8 +6,8 @@
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <Company>Minty Labs</Company>
-        <AssemblyVersion>1.1.2.0</AssemblyVersion>
-        <FileVersion>1.1.2.0</FileVersion>
+        <AssemblyVersion>1.1.3.0</AssemblyVersion>
+        <FileVersion>1.1.3.0</FileVersion>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>XSO_9n2rx2937trx23rc 97tg3rc9 7tr37r3c otf o86rr3 28otf676 8ff6 84rc6f 83r2cf6 86f 8c236f98r b698brf 23c8 o6fi23.snk</AssemblyOriginatorKeyFile>
         <PublicSign>true</PublicSign>
@@ -16,7 +16,7 @@
         <Authors>MintLily</Authors>
         <Description>Windows to XSOverlay Notification Bridge</Description>
         <Copyright>Minty Labs</Copyright>
-        <Version>1.1.2</Version>
+        <Version>1.1.3</Version>
         <ApplicationIcon>..\Resources\XSOWin.ico</ApplicationIcon>
     </PropertyGroup>
 
