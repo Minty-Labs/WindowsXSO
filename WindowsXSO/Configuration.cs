@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Serilog;
 
@@ -23,8 +23,9 @@ public static class Config {
                 TargetApplicationNames = new List<string> { "discord" },
                 AutoCloseWithSteamVr = false
             };
-            File.WriteAllText(ConfigDirectory + "/Config.json", JsonSerializer.Serialize(defaultConfig, new JsonSerializerOptions { WriteIndented = true }));
-            Log.Information("[{0}] Created Config.json", "JSON");
+            File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Config.json"), JsonSerializer.Serialize(defaultConfig, new JsonSerializerOptions { WriteIndented = true }));
+            Log.Information("[{0}] Created Config.json", "CONFIG");
+            Configuration = defaultConfig;
             return;
         }
         Configuration = JsonSerializer.Deserialize<Configuration>(File.ReadAllText(ConfigDirectory + "/Config.json"))!;
