@@ -59,25 +59,17 @@ public class Program {
         if (isInRestartMessage)
             Process.GetCurrentProcess().Kill();
 
-        Config.LoadConfig();
         var config = Config.Configuration!;
         _knownProcesses = Process.GetProcesses().ToList();
         
         try {
             if (config.AutoCloseWithSteamVr) {
                 Log.Information("Attempting to detect SteamVR...");
-                var getSteamVrProcess = _knownProcesses.FirstOrDefault(p => p.ProcessName.ToLower() == "vrserver");
-                if (getSteamVrProcess != null && getSteamVrProcess.ProcessName.ToLower() == "vrserver") {
+                _steamVrProcess = _knownProcesses.FirstOrDefault(p => p.ProcessName.ToLower() == "vrserver");
+                if (_steamVrProcess != null && _steamVrProcess.ProcessName.ToLower() == "vrserver") 
                     Log.Information($"SteamVR detected. This {Vars.AppName} will close when SteamVR closes...");
-                    getSteamVrProcess.Exited += (sender, eventArgs) => {
-                        Log.Information("SteamVR has exited. Exiting in 5 seconds...");
-                        Task.Run(async () => {
-                            await Task.Delay(TimeSpan.FromSeconds(5));
-                            Process.GetCurrentProcess().Kill();
-                        });
-                    };
-                }
-                else Log.Warning("SteamVR was {0}. Auto-Close with SteamVR is disabled. {1}", "not detected", "Please start this program after SteamVR has started.");
+                else
+                    Log.Warning("SteamVR was {0}. Auto-Close with SteamVR is disabled. {1}", "not detected", "Please start this program after SteamVR has started.");
             }
         }
         catch {
@@ -88,11 +80,16 @@ public class Program {
 
         Log.Information("Starting notification listener...");
         while (true) { // Keep the program running
+            
+            // Check if SteamVR is still running
+            if (_steamVrProcess is { HasExited: true }) 
+                await ExitApplicationWithSteamVr();
+            
             IReadOnlyList<UserNotification> readOnlyListOfNotifications = _listener.GetNotificationsAsync(NotificationKinds.Toast).AsTask().Result;
             
             foreach (var userNotification in readOnlyListOfNotifications) {
-                if (_knownNotifications.Contains(userNotification.Id)) continue;
-                _knownNotifications.Add(userNotification.Id);
+                if (KnownNotifications.Contains(userNotification.Id)) continue;
+                KnownNotifications.Add(userNotification.Id);
 
                 try {
                     Windows.ApplicationModel.AppInfo? appInfo = null;
@@ -165,6 +162,14 @@ public class Program {
             Task.Delay(TimeSpan.FromSeconds(1));
         }
         // ReSharper disable once FunctionNeverReturns
+    }
+
+    private static async Task ExitApplicationWithSteamVr() {
+        if (!Config.Configuration!.AutoCloseWithSteamVr) return;
+        if (_steamVrProcess == null) return;
+        Log.Information("SteamVR has exited. Exiting in 5 seconds...");
+        await Task.Delay(TimeSpan.FromSeconds(5));
+        Process.GetCurrentProcess().Kill();
     }
 }
 // Many thanks to Katie for helping me get Windows Notifications. ♥
