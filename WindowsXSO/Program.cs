@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Windows.UI.Notifications;
 using Windows.UI.Notifications.Management;
 using Serilog;
@@ -10,15 +10,16 @@ namespace WindowsXSO;
 public static class Vars {
     public const string AppName = "WindowsXSO";
     public const string WindowsTitle = "Windows to XSOverlay Notification Relay";
-    public const string AppVersion = "1.1.3";
+    public const string AppVersion = "1.2.0";
 }
 
 public class Program {
     private static UserNotificationListener? _listener;
-    private static List<uint> _knownNotifications = new List<uint>();
+    private static readonly List<uint> KnownNotifications = new List<uint>();
     private static List<Process> _knownProcesses = new List<Process>();
+    private static Process? _steamVrProcess;
     
-    public static void Main(string[]? args = null) {
+    public static async Task Main(string[]? args = null) {
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
             .WriteTo.Console()
@@ -26,6 +27,7 @@ public class Program {
         
         Console.Title = Vars.WindowsTitle + " v" + Vars.AppVersion;
 
+        Config.LoadConfig();
         await new Updater().Start(args);
 
         _listener = UserNotificationListener.Current;
@@ -45,6 +47,8 @@ public class Program {
                 Log.Warning("(System) Settings > Privacy & Security > Notifications (Section) > Allow apps to access notifications > ON (true)");
                 Log.Warning("<[{0}]>", "Windows 10");
                 Log.Warning("(System) Settings > Notifications & actions > Get notifications from apps and other senders > ON (true)");
+                Log.Warning("<[{0}]>", "BOTH");
+                Log.Warning("Make sure Focus Assist is OFF (false)");
                 Log.Warning("Once complete, restart this program.");
                 Log.Warning($"Press any key to exit {Vars.AppName}.");
                 Console.ReadKey();
@@ -159,14 +163,14 @@ public class Program {
                     new XSNotifier().SendNotification(xsNotification);
                     Log.Information("Notification sent from {0}: \"{1} - {2}\"", appName, title, text);
 #if DEBUG
-                    Log.Information("JSON: {0}\n", xsNotification.AsJson());
+                    Log.Debug("JSON: {0}\n", xsNotification.AsJson());
 #endif
                 }
                 catch (Exception e) {
                     Log.Error(e, "Error sending notification.");
                 }
             }
-            Task.Delay(TimeSpan.FromSeconds(1));
+            await Task.Delay(TimeSpan.FromSeconds(1));
         }
         // ReSharper disable once FunctionNeverReturns
     }
@@ -180,3 +184,4 @@ public class Program {
     }
 }
 // Many thanks to Katie for helping me get Windows Notifications. ♥
+// Thanks for Natsumi for helping me with the Updater. ♥
