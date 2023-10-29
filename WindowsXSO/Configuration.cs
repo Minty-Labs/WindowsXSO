@@ -21,7 +21,7 @@ public static class Config {
                 ToggleComment = "True - Enable Whitelist (Only allow specified), False - Enable Blacklist (Block specified)",
                 EnableWhitelist = true,
                 TargetApplicationNames = new List<string> { "discord" },
-                AutoCloseWithSteamVr = false
+                AutoCloseWithSteamVr = true,
             };
             File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Config.json"), JsonSerializer.Serialize(defaultConfig, new JsonSerializerOptions { WriteIndented = true }));
             Log.Information("[{0}] Created Config.json", "CONFIG");
