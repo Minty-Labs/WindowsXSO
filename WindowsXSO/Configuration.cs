@@ -20,7 +20,7 @@ public static class Config {
             var defaultConfig = new Configuration {
                 ToggleComment = "True - Enable Whitelist (Only allow specified), False - Enable Blacklist (Block specified)",
                 EnableWhitelist = true,
-                TargetApplicationNames = new List<string> { "discord" },
+                TargetApplicationNames = new List<string> { "discord", "discord ptb", "discord canary" },
                 AutoCloseWithSteamVr = true,
             };
             File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Config.json"), JsonSerializer.Serialize(defaultConfig, new JsonSerializerOptions { WriteIndented = true }));
