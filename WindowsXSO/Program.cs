@@ -114,19 +114,26 @@ public class Program {
                     var height = 175f;
                     var timeout = 6f;
                     
-                    if (text.Length > 100) {
+                    if (text.Length > 150) {
                         height += 25f;
                         timeout = 7f;
                     }
 
-                    if (text.Length > 200) {
+                    if (text.Length > 275) {
                         height += 75f;
                         timeout = 8f;
                     }
 
-                    if (text.Length > 300) {
+                    if (text.Length > 400) {
                         height += 155f;
                         timeout = 10f;
+                    }
+
+                    var truncateText = false;
+                    if (text.Length > 500) {
+                        height += 200f;
+                        timeout = 12f;
+                        truncateText = true;
                     }
 
                     if (text.ToLower().Contains("image.png") || text.ToLower().Contains("image.jpg") || text.ToLower().Contains("image.jpeg") || text.ToLower().Contains("unknown.png")) {
@@ -137,7 +144,7 @@ public class Program {
                     
                     var xsNotification = new XSNotification {
                         Title = $"{appName} - {title}", // supports Rich Text Formatting
-                        Content = text, // supports Rich Text Formatting
+                        Content = truncateText ? text[..1500] : text, // supports Rich Text Formatting
                         Timeout = timeout, // [float] seconds
                         SourceApp = Vars.AppName,
                         MessageType = XSMessageType.Notification,
