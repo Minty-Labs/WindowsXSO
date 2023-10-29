@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Windows.UI.Notifications;
 using Windows.UI.Notifications.Management;
 using Serilog;
@@ -25,6 +25,8 @@ public class Program {
             .CreateLogger();
         
         Console.Title = Vars.WindowsTitle + " v" + Vars.AppVersion;
+
+        await new Updater().Start(args);
 
         _listener = UserNotificationListener.Current;
         var accessStatus = _listener.RequestAccessAsync().GetResults();

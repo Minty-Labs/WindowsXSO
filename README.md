@@ -14,7 +14,7 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/Minty-Labs/WindowsXSO">
     <img src="Resources/XSOWin_Icon.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -93,13 +93,15 @@ This program requires very specific things to run properly:
 * * * Settings > Privacy & Security > Notifications (Section) > Allow apps to access notifications > ON (true)
 * * Windows 10
 * * * Settings > Notifications & actions > Get notifications from app and other senders > ON (true)
+* * Both
+* * * Make sure Focus Assist is OFF (false)
 
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Add auto-update
+- [x] Add auto-update
   - Will toggle-able with config
 - [ ] Add Pre-start commands
     - [ ] Configuration control
@@ -160,6 +162,7 @@ Project Link: [https://github.com/Minty-Labs/WindowsXSO](https://github.com/Mint
 
 * [README Style](https://github.com/othneildrew/Best-README-Template)
 * Katie - For help with the Windows API
+* [Natsumi](https://github.com/Natsumi-sama) - For help with Updater logic
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

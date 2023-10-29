@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <PackageId>WindowsXSO Updater</PackageId>
+        <Title>WindowsXSO </Title>
+        <Authors>MintLily</Authors>
+        <Copyright>Minty Labs</Copyright>
+        <Company>Minty Labs</Company>
+        <Product>WindowsXSO Updater</Product>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <FileVersion>1.0.0.0</FileVersion>
+        <PackageProjectUrl>https://github.com/Minty-Labs/WindowsXSO</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/Minty-Labs/WindowsXSO/blob/main/LICENSE</PackageLicenseUrl>
+        <Description>WindowsXSO Updater</Description>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>WXSOU_6798n235c97tnb2r34c7tb98n23rc7t9n83rc1279nt32rc79nt3rc297tbn3rc21.snk</AssemblyOriginatorKeyFile>
+        <PublicSign>true</PublicSign>
+        <ApplicationIcon>..\Resources\XSOWinUpdater_Icon.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Include="..\Resources\XSOWinUpdater_Icon.ico">
+        <Link>XSOWinUpdater_Icon.ico</Link>
+      </None>
+    </ItemGroup>
+
+</Project>
