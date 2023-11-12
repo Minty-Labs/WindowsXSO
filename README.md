@@ -160,7 +160,7 @@ Project Link: [https://github.com/Minty-Labs/WindowsXSO](https://github.com/Mint
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [README Style](https://github.com/othneildrew/Best-README-Template)
+* Othneil Drew - for the [README Style](https://github.com/othneildrew/Best-README-Template)
 * Katie - For help with the Windows API
 * [Natsumi](https://github.com/Natsumi-sama) - For help with Updater logic
 
@@ -177,7 +177,7 @@ Project Link: [https://github.com/Minty-Labs/WindowsXSO](https://github.com/Mint
 [stars-url]: https://github.com/Minty-Labs/WindowsXSO/stargazers
 [issues-shield]: https://img.shields.io/github/issues/Minty-Labs/WindowsXSO.svg?style=for-the-badge
 [issues-url]: https://github.com/Minty-Labs/WindowsXSO/issues
-[license-shield]: https://img.shields.io/github/issues/Minty-Labs/WindowsXSO.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/Minty-Labs/WindowsXSO.svg?style=for-the-badge
 [license-url]: https://github.com/Minty-Labs/WindowsXSO/blob/main/LICENSE
 [releases-url]: https://github.com/Minty-Labs/WindowsXSO/releases
 
