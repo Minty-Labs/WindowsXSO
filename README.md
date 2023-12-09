@@ -63,6 +63,14 @@
 
 Do you always miss notifactions while you're in VR? And, do you use [XSOverlay][XSOverlaySteam]? You can use this program. This program will translate windows notifications into a popup window with XSOverlay while you're in VR.
 
+<details>
+  <summary>Using Vencord?</summary>
+  <p>
+    Use this plugin by nyakoo:<br>
+    <img src="https://i.mintlily.lgbt/4erW18I3UUjc.png" height="150px" />
+  </p>
+</details>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -105,7 +113,7 @@ This program requires very specific things to run properly:
   - Will toggle-able with config
 - [ ] Add Pre-start commands
     - [ ] Configuration control
-    - [ ] Run in background (no console window)
+- [ ] Run in background (no console window) (might just make it auto minimize)
 - [ ] Multi-language Support
     - [x] English
     - [ ] Spanish
