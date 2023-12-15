@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Serilog;
 
@@ -20,6 +20,7 @@ public class DeveloperVars {
 }
 
 public static class Config {
+    private static readonly ILogger Logger = Log.ForContext(typeof(Config));
     public static Configuration? Configuration { get; private set; }
     
     public static void LoadConfig() {

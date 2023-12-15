@@ -6,6 +6,7 @@ namespace WindowsXSO;
 
 public class Updater {
     public Updater UpdaterClass() => this;
+    private static readonly ILogger Logger = Log.ForContext(typeof(Updater));
     private const string GitHubApiUrl = "https://api.github.com/repos/Minty-Labs/WindowsXSO/releases/latest";
     private string ApiResponse;
     private const string UpdaterDownloadUrl = "https://raw.githubusercontent.com/Minty-Labs/WindowsXSO/main/Resources/Updater.exe";
@@ -16,28 +17,29 @@ public class Updater {
         ApiResponse = await httpClient.GetStringAsync(GitHubApiUrl);
         var apiResponseJson = JsonSerializer.Deserialize<GitHubApiResponseJson.Api>(ApiResponse);
         if (apiResponseJson == null) {
-            Log.Error("Failed to deserialize GitHub API response.");
+            Logger.Error("Failed to deserialize GitHub API response.");
             httpClient.Dispose();
             return;
         }
         var latestVersion = apiResponseJson.tag_name;
         if (Vars.AppVersion == latestVersion) {
 #if DEBUG
-            Log.Debug("You are running the latest version of {0}.", Vars.AppName);
- #endif
-            httpClient.Dispose();
-            return;
-        }
-        
-        Log.Information("{0} v{1} is available to download. (Current v{2})", Vars.AppName, latestVersion, Vars.AppVersion);
-        if (!Config.Configuration!.AutoUpdate) {
-#if DEBUG
-            Log.Debug("Auto Update is disabled.");
+            Logger.Debug("You are running the latest version of {0}.", Vars.AppName);
 #endif
             httpClient.Dispose();
             return;
         }
-        Log.Information("Updating {0} to v{1}", Vars.AppName, latestVersion);
+        
+        Logger.Warning("Updater is only in English");
+        Logger.Information("{0} v{1} is available to download. (Current v{2})", Vars.AppName, latestVersion, Vars.AppVersion);
+        if (!Config.Configuration!.AutoUpdate) {
+#if DEBUG
+            Logger.Debug("Auto Update is disabled.");
+#endif
+            httpClient.Dispose();
+            return;
+        }
+        Logger.Information("Updating {0} to v{1}", Vars.AppName, latestVersion);
         
         var updaterFile = Path.Combine(Environment.CurrentDirectory, "Updater.exe");
         
@@ -47,7 +49,7 @@ public class Updater {
         
         // Create Updater EXE
         if (!File.Exists(updaterFile)) {
-            Log.Information("Downloading Updater.exe from {0}", UpdaterDownloadUrl);
+            Logger.Information("Downloading Updater.exe from {0}", UpdaterDownloadUrl);
             var updaterExeBytes = await httpClient.GetByteArrayAsync(UpdaterDownloadUrl);
             await File.WriteAllBytesAsync(updaterFile, updaterExeBytes);
         }

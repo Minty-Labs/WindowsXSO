@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Windows.UI.Notifications;
 using Windows.UI.Notifications.Management;
 using Serilog;
@@ -14,6 +14,7 @@ public static class Vars {
 }
 
 public class Program {
+    private static readonly ILogger Logger = Log.ForContext("SourceContext", Vars.AppName);
     private static UserNotificationListener? _listener;
     private static readonly List<uint> KnownNotifications = new List<uint>();
     private static List<Process> _knownProcesses = new List<Process>();
