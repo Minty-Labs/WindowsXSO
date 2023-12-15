@@ -111,7 +111,7 @@ This program requires very specific things to run properly:
 English - [Lily](https://github.com/MintLily)<br>
 Español (España) - [Lily](https://github.com/MintLily) + un poco de Traductor de Google<br>
 Deutsch - Google Translate (Korrekturlesen erforderlich)<br>
-**Not complete, but planned** *(If no one helps, more Google Translate will be used)*
+**Not complete, but planned** *(If no one helps, more Google Translate will be used)*<br>
 Français<br>
 Русский
 
