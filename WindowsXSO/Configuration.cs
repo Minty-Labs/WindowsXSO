@@ -11,12 +11,16 @@ public class Configuration {
     [JsonPropertyName("Target Application Names")] public List<string>? TargetApplicationNames { get; set; }
     [JsonPropertyName("Auto-Close with SteamVR")] public bool AutoCloseWithSteamVr { get; set; }
     [JsonPropertyName("Auto Update")] public bool AutoUpdate { get; set; }
+    [JsonPropertyName("Language")] public LanguageConf Language { get; set; } = new ();
 }
 
 public class DeveloperVars {
     [JsonPropertyName("Config Version")] public int ConfigVersion { get; set; }
     [JsonPropertyName("Was it updated?")] public bool WasItUpdated { get; set; }
     [JsonPropertyName("Use Shell Execute")] public bool UseShellExecute { get; set; }
+public class LanguageConf {
+    [JsonPropertyName("Comment")] public string? Comment { get; set; } = "0=English, 1=Espanol, 2=Deutsch";
+    [JsonPropertyName("Set")] public int Language { get; set; } = 0;
 }
 
 public static class Config {

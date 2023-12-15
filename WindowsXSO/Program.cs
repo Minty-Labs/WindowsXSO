@@ -2,6 +2,10 @@ using System.Diagnostics;
 using Windows.UI.Notifications;
 using Windows.UI.Notifications.Management;
 using Serilog;
+using Serilog.Core;
+using Serilog.Events;
+using Serilog.Templates;
+using Serilog.Templates.Themes;
 using XSNotifications;
 using XSNotifications.Enum;
 
@@ -21,42 +25,55 @@ public class Program {
     private static Process? _steamVrProcess;
     
     public static async Task Main(string[]? args = null) {
+        var levelSwitch = new LoggingLevelSwitch {
+#if DEBUG
+            MinimumLevel = LogEventLevel.Debug
+#else
+            MinimumLevel = LogEventLevel.Information
+#endif
+        };
         Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Debug()
-            .WriteTo.Console()
+            .MinimumLevel.ControlledBy(levelSwitch)
+            .WriteTo.Console(new ExpressionTemplate(
+                template: "[{@t:HH:mm:ss} {@l:u3} {Coalesce(Substring(SourceContext, LastIndexOf(SourceContext, '.') + 1),'unset')}] {@m}\n{@x}",
+                theme: TemplateTheme.Literate))
             .CreateLogger();
         
         Console.Title = Vars.WindowsTitle + " v" + Vars.AppVersion;
 
         Config.LoadConfig();
         await new Updater().Start(args);
-
+        Language.Start();
+        
+        var lang = Config.Configuration!.Language.Language;
         _listener = UserNotificationListener.Current;
         var accessStatus = _listener.RequestAccessAsync().GetResults();
 
         var isInRestartMessage = false;
         switch (accessStatus) {
             case UserNotificationListenerAccessStatus.Allowed:
-                Log.Information("Notifications {0}.", "access granted");
+                Logger.Information("Notifications are allowed".NotificationsAllowed(Config.Configuration!.Language.Language));
                 break;
             case UserNotificationListenerAccessStatus.Denied:
-                Log.Error("Notifications {0}.", "access denied");
+                Logger.Error("Notifications are not allowed".NotificationsBlocked(lang));
                 isInRestartMessage = true;
-                Log.Warning("Please grant access to notifications.");
+                Logger.Warning("Please grant access to notifications".GrantNotifications(lang));
                 Console.WriteLine("----------------------------------------");
-                Log.Warning("<[{0}]>", "Windows 11");
-                Log.Warning("(System) Settings > Privacy & Security > Notifications (Section) > Allow apps to access notifications > ON (true)");
-                Log.Warning("<[{0}]>", "Windows 10");
-                Log.Warning("(System) Settings > Notifications & actions > Get notifications from apps and other senders > ON (true)");
-                Log.Warning("<[{0}]>", "BOTH");
-                Log.Warning("Make sure Focus Assist is OFF (false)");
-                Log.Warning("Once complete, restart this program.");
-                Log.Warning($"Press any key to exit {Vars.AppName}.");
+                Logger.Warning("<[{0}]>", "Windows 11");
+                Logger.Warning("System Settings".Settings(lang) + " > " + "Privacy & Security".PrivacySecurity(lang) + " > " + "Notifications (Section)".NotificationSection(lang) + 
+                               " > " + "Allow apps to access notifications".AllowApps(lang) + " > " + "ON (true)".On(lang));
+                Logger.Warning("<[{0}]>", "Windows 10");
+                Logger.Warning("System Settings".Settings(lang) + " > " + "Notifications & actions".NotificationActions(lang) + " > " + "Get notifications from apps and other senders".GetNotifFromOtherApp(lang) + 
+                               " > " + "ON (true)".On(lang));
+                Logger.Warning("<[{0}]>", "BOTH".Both(lang));
+                Logger.Warning("Make sure Focus Assist is OFF (false)".AppFocus(lang));
+                Logger.Warning("Once complete, restart this program.".Restart(lang));
+                Logger.Warning("Press any key to exit".PressAnyKey(lang, Vars.AppName));
                 Console.ReadKey();
                 break;
             case UserNotificationListenerAccessStatus.Unspecified:
-                Log.Warning("Notifications {0}.", "access unspecified");
-                Log.Warning("Notifications may not work as intended.");
+                Logger.Warning("Notifications access unspecified".Unspecified(lang));
+                Logger.Warning("Notifications may not work as intended.".MayNotWork(lang));
                 break;
             default: throw new ArgumentOutOfRangeException();
         }
@@ -69,26 +86,31 @@ public class Program {
         
         try {
             if (config.AutoCloseWithSteamVr) {
-                Log.Information("Attempting to detect SteamVR...");
+                Logger.Information("Attempting to detect SteamVR...".AttemptDetect(lang));
                 _steamVrProcess = _knownProcesses.FirstOrDefault(p => p.ProcessName.ToLower() == "vrserver");
                 if (_steamVrProcess != null && _steamVrProcess.ProcessName.ToLower() == "vrserver") 
-                    Log.Information($"SteamVR detected. This {Vars.AppName} will close when SteamVR closes...");
+                    Logger.Information($"SteamVR detected. This {Vars.AppName} will close when SteamVR closes...".SteamVrDetected(lang, Vars.AppName));
                 else
-                    Log.Warning("SteamVR was {0}. Auto-Close with SteamVR is disabled. {1}", "not detected", "Please start this program after SteamVR has started.");
+                    Logger.Warning("SteamVR was not detected. Auto-Close with SteamVR is disabled.".SteamVrNotDetected(lang) + " {0}", "Please start this program after SteamVR has started.".StartAfter(lang));
             }
         }
         catch {
             // ignored
         }
 
-        Log.Information($"{(config.EnableWhitelist ? "Whitelist" : "Blacklist")} enabled. {(config.EnableWhitelist ? "Allowing" : "Blocking")} target applications: " + "{0}", string.Join(", ", config.TargetApplicationNames!));
-
-        Log.Information("Starting notification listener...");
+        Logger.Information($"{(config.EnableWhitelist ? "Whitelist" : "Blacklist")} enabled. {(config.EnableWhitelist ? "Allowing" : "Blocking")} target applications: " + "{0}", string.Join(", ", config.TargetApplicationNames!));
+        
+        if (config.AutoMinimize) {
+            Logger.Information("Minimizing in 10 seconds...".MinimizeIn(lang));
+            Minimizer.Minimize();
+        }
+        
+        Logger.Information("Starting notification listener...".Starting(lang));
         while (true) { // Keep the program running
             
             // Check if SteamVR is still running
             if (_steamVrProcess is { HasExited: true }) 
-                await ExitApplicationWithSteamVr();
+                await ExitApplicationWithSteamVr(lang);
             
             IReadOnlyList<UserNotification> readOnlyListOfNotifications = _listener.GetNotificationsAsync(NotificationKinds.Toast).AsTask().Result;
             
@@ -162,24 +184,26 @@ public class Program {
                     };
         
                     new XSNotifier().SendNotification(xsNotification);
-                    Log.Information("Notification sent from {0}: \"{1} - {2}\"", appName, title, text);
+                    Logger.Information("Notification sent from ".SentFrom(lang) + "{0}: \"{1} - {2}\"", appName, title, text);
 #if DEBUG
-                    Log.Debug("JSON: {0}\n", xsNotification.AsJson());
+                    Logger.Debug("JSON: {0}\n", xsNotification.AsJson());
 #endif
                 }
                 catch (Exception e) {
-                    Log.Error(e, "Error sending notification.");
+                    Logger.Error(e, "Error sending notification.");
                 }
+
+                
             }
             await Task.Delay(TimeSpan.FromSeconds(1));
         }
         // ReSharper disable once FunctionNeverReturns
     }
 
-    private static async Task ExitApplicationWithSteamVr() {
+    private static async Task ExitApplicationWithSteamVr(int languageSelection) {
         if (!Config.Configuration!.AutoCloseWithSteamVr) return;
         if (_steamVrProcess == null) return;
-        Log.Information("SteamVR has exited. Exiting in 5 seconds...");
+        Logger.Information("SteamVR has exited. Exiting in 5 seconds...".Exited(languageSelection));
         await Task.Delay(TimeSpan.FromSeconds(5));
         Process.GetCurrentProcess().Kill();
     }
