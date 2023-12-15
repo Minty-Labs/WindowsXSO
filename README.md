@@ -105,6 +105,19 @@ This program requires very specific things to run properly:
 * * * Make sure Focus Assist is OFF (false)
 
 
+<!-- LANGUAGES -->
+## Languages
+
+English - [Lily](https://github.com/MintLily)<br>
+Español (España) - [Lily](https://github.com/MintLily) + un poco de Traductor de Google<br>
+Deutsch - Google Translate (Korrekturlesen erforderlich)<br>
+**Not complete, but planned** *(If no one helps, more Google Translate will be used)*
+Français<br>
+Русский
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -113,13 +126,13 @@ This program requires very specific things to run properly:
   - Will toggle-able with config
 - [ ] Add Pre-start commands
     - [ ] Configuration control
-- [ ] Run in background (no console window) (might just make it auto minimize)
-- [ ] Multi-language Support
+- [x] Run in background (no console window) (might just make it auto minimize)
+- [x] Multi-language Support
     - [x] English
-    - [ ] Spanish
+    - [x] Spanish
     - [ ] French
     - [ ] Russian
-    - [ ] German
+    - [x] German
 
 See the [open issues][issues-url] for a full list of proposed features (and known issues).
 
