@@ -92,7 +92,7 @@ Download the [latest version][releases-url] of WindowsXSO.
 ### Prerequisites
 
 This program requires very specific things to run properly:
-* [DotNet Desktop Runtime 7.0.x][DotNetUrl] (For the application)
+* [DotNet Desktop Runtime 8.0.x][DotNetUrl] (For the application)
 * Windows 11 Home/Pro
 * * Or Windows 10 Home/Pro (Build [22621.1265](https://support.microsoft.com/en-us/topic/february-14-2023-kb5022845-os-build-22621-1265-90a807f4-d2e8-486e-8a43-d09e66319f38)+)
 * Granted access to notifications
