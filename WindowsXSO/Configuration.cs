@@ -30,8 +30,8 @@ public static class Config {
     private static readonly ILogger Logger = Log.ForContext(typeof(Config));
     public static Configuration? Configuration { get; private set; }
     
-    public static void LoadConfig() {
-        var hasFile = File.Exists(Path.Combine(Environment.CurrentDirectory, "Config.json"));
+    public static void Load() {
+        var hasFile = File.Exists("Config.json");
         
         var defaultConfig = new Configuration {
             ToggleComment = "True - Enable Whitelist (Only allow specified), False - Enable Blacklist (Block specified)",
@@ -54,7 +54,7 @@ public static class Config {
         bool update;
         Configuration config = null;
         if (hasFile) {
-            var oldJson = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Config.json"));
+            var oldJson = File.ReadAllText("Config.json");
             config = JsonSerializer.Deserialize<Configuration>(oldJson);
             if (config?.DeveloperVars.ConfigVersion == Vars.ConfigVersion) {
                 Configuration = config;
@@ -68,10 +68,10 @@ public static class Config {
         }
         
         var json = JsonSerializer.Serialize(config ?? defaultConfig, new JsonSerializerOptions { WriteIndented = true });
-        File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Config.json"), json);
+        File.WriteAllText("Config.json", json);
         Logger.Information("{0} Config.json", update ? "Updated" : hasFile ? "Loaded" : "Created");
         Configuration = config ?? defaultConfig;
     }
     
-    public static void Save() => File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Config.json"), JsonSerializer.Serialize(Configuration, new JsonSerializerOptions { WriteIndented = true }));
+    public static void Save() => File.WriteAllText("Config.json", JsonSerializer.Serialize(Configuration, new JsonSerializerOptions { WriteIndented = true }));
 }
