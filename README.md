@@ -78,8 +78,7 @@ Do you always miss notifactions while you're in VR? And, do you use [XSOverlay][
 ### Built With
 
 [![DotNet][CSharp]][DotNetUrl]<br>
-[![Rider][Rider]][RiderUrl]<br>
-[![Obsidian][Obsidian]][ObsidianUrl]
+[![Rider][Rider]][RiderUrl]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -204,8 +203,8 @@ Project Link: [https://github.com/Minty-Labs/WindowsXSO](https://github.com/Mint
 
 [Rider]: https://img.shields.io/badge/Rider-000000?style=for-the-badge&logo=rider&logoColor=white
 [RiderUrl]: https://jb.gg/OpenSourceSupport
-[CSharp]: https://img.shields.io/badge/DotNet%207-512BD4?style=for-the-badge&logo=csharp&logoColor=white
-[DotNetUrl]: https://dotnet.microsoft.com/en-us/download/dotnet/7.0
+[CSharp]: https://img.shields.io/badge/DotNet%208-512BD4?style=for-the-badge&logo=csharp&logoColor=white
+[DotNetUrl]: https://dotnet.microsoft.com/en-us/download/dotnet/8.0
 [Obsidian]: https://img.shields.io/badge/Obsidian-7C3AED?style=for-the-badge&logo=obsidian&logoColor=white
 [ObsidianUrl]: https://obsidian.md/
 [XSOverlaySteam]: https://store.steampowered.com/app/1173510/XSOverlay/

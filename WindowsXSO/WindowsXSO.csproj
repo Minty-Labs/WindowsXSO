@@ -11,7 +11,7 @@
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>XSO_9n2rx2937trx23rc 97tg3rc9 7tr37r3c otf o86rr3 28otf676 8ff6 84rc6f 83r2cf6 86f 8c236f98r b698brf 23c8 o6fi23.snk</AssemblyOriginatorKeyFile>
         <PublicSign>true</PublicSign>
-        <TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
+        <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
         <Title>WindowsXSO</Title>
         <Authors>MintLily</Authors>
         <Description>Windows to XSOverlay Notification Bridge</Description>
