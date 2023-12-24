@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Windows.UI.Notifications;
 using Windows.UI.Notifications.Management;
 using Serilog;
@@ -14,7 +14,7 @@ namespace WindowsXSO;
 public static class Vars {
     public const string AppName = "WindowsXSO";
     public const string WindowsTitle = "Windows to XSOverlay Notification Relay";
-    public const string AppVersion = "1.3.0";
+    public const string AppVersion = "1.3.1";
     public const int ConfigVersion = 3;
 }
 
@@ -42,7 +42,7 @@ public class Program {
         
         Console.Title = Vars.WindowsTitle + " v" + Vars.AppVersion;
 
-        Config.LoadConfig();
+        Config.Load();
         await new Updater().Start(args);
         Language.Start();
         
