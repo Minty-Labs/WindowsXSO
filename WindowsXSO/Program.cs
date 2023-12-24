@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Windows.UI.Notifications;
 using Windows.UI.Notifications.Management;
 using Serilog;
@@ -164,8 +164,8 @@ public class Program {
                         truncateText = true;
                     }
 
-                    if (text.ToLower().Contains("image.png") || text.ToLower().Contains("image.jpg") || text.ToLower().Contains("image.jpeg") || text.ToLower().Contains("unknown.png")) {
-                        text = "Sent an image.";
+                    if (text.ToLower().ContainsMultiple(".png", ".jpg", ".jpeg", ".gif", ".webp", ".bmp", ".tiff", ".tif", ".svg")) {
+                        text = "[" + "image".Image(lang) + $": {text}]";
                         height = 100f;
                         timeout = 3f;
                     }

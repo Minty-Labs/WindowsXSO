@@ -213,4 +213,12 @@ public static class Language {
             _ => text
         };
     }
+    
+    public static string Image(this string text, int languageOption) {
+        return languageOption switch {
+            1 => "imagen",
+            2 => "bild",
+            _ => text
+        };
+    }
 }
